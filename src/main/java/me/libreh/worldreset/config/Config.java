@@ -20,6 +20,9 @@ public class Config {
     @SerializedName("seed")
     public String seed = "random";
 
+    @SerializedName("reset_on_player_death")
+    public boolean resetOnPlayerDeath = true;
+
     public static class StopTimerOn {
         @SerializedName("end_fountain_enter")
         public boolean endFountainEnter = true;

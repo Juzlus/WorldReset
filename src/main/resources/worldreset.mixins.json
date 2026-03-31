@@ -5,6 +5,7 @@
   "mixins": [
     "game.EnderDragonEntityMixin",
     "game.EntityMixin",
+    "game.PlayerEntityMixin",
     "world.BlockableEventLoopAccessor",
     "world.MinecraftServerAccessor",
     "world.MinecraftServerCancelStartRegionMixin",

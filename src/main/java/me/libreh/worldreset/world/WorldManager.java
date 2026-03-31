@@ -9,6 +9,7 @@ import java.util.UUID;
 
 public class WorldManager {
     private boolean shouldCancelSaving = true;
+    private boolean isOneTimeRestart = false;
     public final Set<UUID> fountainPlayers = new HashSet<>();
     private final CountdownManager countdownManager;
     private final PlayerManager playerManager;
@@ -31,7 +32,13 @@ public class WorldManager {
         if (!countdownManager.isCountdownActive()) {
             countdownManager.broadcastRestart();
             resetWorlds("");
-            countdownManager.continueCountdown();
+            
+            if (this.isOneTimeRestart)
+            {
+                this.countdownManager.stopCountdown();
+                this.isOneTimeRestart = false;
+            } else
+                countdownManager.continueCountdown();
         }
     }
 
@@ -57,5 +64,10 @@ public class WorldManager {
 
     public void setCancelSaving(boolean shouldCancelSaving) {
         this.shouldCancelSaving = shouldCancelSaving;
+    }
+
+    public void startPlayerDeathReset(long seconds) {
+        this.isOneTimeRestart = true;
+        this.setCountdownTimer(seconds);
     }
 }

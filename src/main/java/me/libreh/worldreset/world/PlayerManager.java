@@ -10,6 +10,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.GameType;
 
 import java.util.Set;
 
@@ -26,6 +27,7 @@ public class PlayerManager {
         if (player.isAlive()) {
             teleportToLobby(player);
             teleportToOverworldSpawn(player);
+            setSurvival(player);
         } else {
             respawnPlayer(player);
         }
@@ -68,6 +70,11 @@ public class PlayerManager {
                 new ServerboundClientCommandPacket(ServerboundClientCommandPacket.Action.PERFORM_RESPAWN)
         );
         taskExecutor.execute(() -> updatePlayer(connection.player));
+    }
+
+    public void setSurvival(ServerPlayer player) {
+        if (player.gameMode.getGameModeForPlayer() != GameType.SURVIVAL)
+            player.setGameMode(GameType.SURVIVAL);
     }
 
     public boolean shouldStop(ServerPlayer player) {
