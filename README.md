@@ -27,6 +27,8 @@ All permissions are available with operator as well
   },
   // Supports long or random seed
   "seed": "random"
+  // Restart the world after any player dies
+  "restart_on_player_death": true
 }
 ```
 
